@@ -8,6 +8,7 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
   message(STATUS "${PROJECT_NAME}: You did not request a specific build type: selecting 'RelWithDebInfo'.")
@@ -100,6 +101,7 @@ target_link_libraries(${library_name} PRIVATE
   ${GeographicLib_LIBRARIES}
   yaml-cpp::yaml-cpp
 )
+target_compile_definitions(${library_name} PRIVATE _USE_MATH_DEFINES)
 
 add_executable(
   ekf_node
